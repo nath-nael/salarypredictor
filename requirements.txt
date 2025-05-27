@@ -1,0 +1,10 @@
+streamlit
+scikit-learn
+pandas
+numpy
+joblib
+pickle
+numpy
+pandas 
+category_encoders
+gdown

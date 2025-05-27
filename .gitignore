@@ -1,0 +1,8 @@
+*.pkl
+model_components.pkl
+best_model.pkl
+scaler.pkl
+pca.pkl
+target_encoder.pkl
+ordinal_encoder.pkl
+model_metadata.pkl
