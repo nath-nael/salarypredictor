@@ -58,6 +58,93 @@ streamlit run app.py
 
 You can also access the deployed Streamlit application here: [Salary Predictor](https://salarypredictorsb.streamlit.app/)
 
+## Title
+**Machine Learning Process**
+
+## Importing Data
+- Loaded the dataset using **Pandas** from a raw survey CSV file.
+
+---
+
+## Preprocessing
+
+### Renaming Columns
+- Simplified verbose column names from the survey for clarity and easier manipulation.
+
+### Salary & Compensation Conversion
+- Converted salary and additional compensation columns from string to decimal.
+- Standardized all currency values to **USD**.
+
+### Country Normalization
+- Cleaned country column with **regex** and **fuzzy matching**.
+- Example variants: `US`, `U.S.`, `United States`, `USA`, etc.
+
+### Generalizing Industries
+- High-cardinality and inconsistent entries were mapped to general industry categories.
+- Example: `Library`, `Libraries`, `nonprofit`, `NGO` → `Non-Profit`.
+
+### Generalizing Job Titles
+- Mapped job title variations to standardized roles.
+- Example: `ceo`, `chief executive officer`, `senior`, `data analyst` → mapped appropriately.
+
+### Filtering Clean Columns
+- Kept only relevant, cleaned features for modeling.
+
+### Exploratory Data Analysis
+- Performed visual and statistical analysis to understand distributions and relationships.
+
+### Handling Missing Values
+- Numerical fields (`Salary`, `AdditionalComp`): filled with `0`.
+- Categorical fields: filled with mode.
+
+### Encoding Features
+- **Target Encoding**: Applied to `Industry`, `JobTitle`, `Country`, and `Race` based on `TotalCompensation` (Salary + AddComp).
+- **Ordinal Encoding**: For `Age Group`, `Experience Level`, and `Education Level`.
+- **One-Hot Encoding**: For `Gender`.
+
+### Binning Features
+- **Salary**: Binned using equal-width binning.
+- **Additional Compensation**: Binned by frequency due to many zeros.
+
+---
+
+## Model Selection & Training
+
+### Data Splitting
+- Train-test split with 80% training data.
+
+### Normalization
+- Used **StandardScaler** to normalize feature values for PCA and model input.
+
+### Dimensionality Reduction
+- Applied **PCA (Principal Component Analysis)** to reduce feature dimensionality while retaining variance.
+- Improves training time and reduces overfitting.
+
+### Model Setup
+- Used **MultiOutputClassifier** to predict both Salary and Additional Compensation classes.
+- Classifiers tested:
+  - **RandomForest**
+  - **GradientBoosting**
+  - **XGBoost**
+
+### Hyperparameter Tuning
+- Performed grid search or randomized search to optimize parameters for each model.
+- Focused on balance between accuracy and overfitting risk.
+
+---
+
+## Best Model: RandomForest
+
+### Why RandomForest Performed Best:
+- Handles categorical + numerical data well.
+- Robust to noise and missing values.
+- Ensemble method: reduces variance through averaging.
+- Outperformed GradientBoosting and XGBoost likely due to:
+  - Less sensitivity to overfitting in this dataset.
+  - Better handling of wide variety in encoded categorical features.
+
+---
+
 
 ## Conclusion
 
